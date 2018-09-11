@@ -1,11 +1,11 @@
-# 프레임워크(Frame work)[^1]
+# 프레임워크(Frame work)
 
 * 어떤 목적을 당성하기 위해 복잡하게 얽혀 있는 문제를 해결하기 위한 구조
 * 소프트웨어 개발에 있어 하나의 뼈대 역할을 한다.
 
 
 
-# 스프링 프레임워크(Spring Framework)[^2]
+# 스프링 프레임워크(Spring Framework)
 
 * 자바 플랫폼을 위한 오픈소스 애플리케이션 프레임워크
 * 간단히 스프링(Spring)이라고 불린다.
@@ -22,9 +22,12 @@
 * 영속성과 관련된 다양한 서비스를 지원한다. iBATIS나 Hibernate 등 이미 완성도가 높은 데이터베이스 처리 라이브러리와 연결할 수 있는 인터페이스를 제공한다.
 * 확장성이 높다.
 
+![그림1](https://t1.daumcdn.net/cfile/tistory/2562463D54E6C49826)
+
 ## 참고
 
-[^1]: 나무위키 : https://namu.wiki/w/%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC
-[^2]: 위키백과 : https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%94%84%EB%A7%81_%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC
-
- 
+* 프레임워크 
+  * 나무위키 : https://namu.wiki/w/%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC
+* 스프링프레임워크 
+  * 위키백과 : https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%94%84%EB%A7%81_%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC
+  * 블로그(이미지) : http://ooz.co.kr/175
