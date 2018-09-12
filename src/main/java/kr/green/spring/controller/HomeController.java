@@ -35,4 +35,28 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping(value="/test", method=RequestMethod.GET)
+	public String testGet(Model model) {
+		model.addAttribute("company","그린");
+		return "test/test";
+	}
+	@RequestMapping(value="/test", method=RequestMethod.POST)
+	public String testPost(Model model,
+			String id) {
+		System.out.println("id : " + id);
+		model.addAttribute("company",id);
+		return "test/test";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
