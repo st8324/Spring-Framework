@@ -60,6 +60,16 @@ public class HomeController {
 		System.out.println("email : " + email);
 		return "redirect:/signup";
 	}
+	@RequestMapping(value="/signin", method=RequestMethod.GET)
+	public String signinGet() {
+		return "member/signin";
+	}
+	@RequestMapping(value="/signin", method=RequestMethod.POST)
+	public String signinPost(String id, String pw) {
+		System.out.println("id : " + id);
+		System.out.println("pw : " + pw);
+		return "redirect:/signin";
+	}
 }
 
 
