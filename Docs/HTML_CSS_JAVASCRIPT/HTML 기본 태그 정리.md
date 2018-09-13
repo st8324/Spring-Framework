@@ -13,11 +13,11 @@
 * Block 태그 
   * Block 태그는 새로운 라인에서 시작 되며, Block 태그 다음에 오는 모든 태그들은 새 라인에서 시작  >> 행렬로 비교하면 행에 해당
   * Block 태그들은 css의 속성 중 height, width, margin, padding을 적용할 수 있다.
-  * 예 : `<p>` ,`<div>`, `
+  * 예 : `<p>` ,`<div>`
 * Inline 태그
   * Inline 태그들은 새라인에서 시작하지 않고 현재 라인에서 시작 >> 행렬로 비교하면 열에 해당
   * Inline 태그들은 css의 속성 중 height, width, margin, padding등의 속성을 적용할 수 없다.
-  * 예 : `<span>`, 
+  * 예 : `<span>`
 * 쌍으로 된 태그
   * 태그의 시작과 끝이 따로 있어 시작과 끝 사이에 안에 코드를 넣는 태그 : <태그> 코드 </태그>
   * 예 : `<p>` ,`<div>` 등.. 
@@ -31,7 +31,7 @@
 
   * HTML로 작성되어 있다는 것을 알려줌.
 
-* ####HEAD 태그 : `<head>`
+* #### HEAD 태그 : `<head>`
 
   * 머리말에 해당함.
   * css나 javascript를 연결해줌.
@@ -51,7 +51,7 @@
 
 * SCRIPT 태그 : `<script>` 
 
-  * 외주 js 파일을 연결하거나 javascript 코드를 입력할 때 사용
+  * 외부 js 파일을 연결하거나 javascript 코드를 입력할 때 사용
 
 * #### BODY 태그 : `<body>`
 
@@ -97,6 +97,10 @@
 * IMG 태그 : `<img>`
 
   * 이미지를 가져옴
+  * src 속성 : 가져올 이미지의 주소
+  * alt 속성 : 이미지 불러오기 실패시 보여줄 문자열
+  * width 속성 : 이미지의 가로의 길이
+  * height 속성 : 이미지의 세로의 길이
 
 * INPUT 태그 : `<input>`
 
