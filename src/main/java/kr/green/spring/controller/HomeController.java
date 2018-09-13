@@ -46,6 +46,20 @@ public class HomeController {
 		model.addAttribute("res", res);
 		return "redirect:/";
 	}
+	@RequestMapping(value="/signup",method=RequestMethod.GET)
+	public String signupGet() {
+		return "member/signup";
+	}
+	@RequestMapping(value="/signup",method=RequestMethod.POST)
+	public String signupPost(String id, String pw, 
+		String pwConfirm, String gender, String email) {
+		System.out.println("id : " + id);
+		System.out.println("pw : " + pw);
+		System.out.println("pwConfirm : " + pwConfirm);
+		System.out.println("gender : " + gender);
+		System.out.println("email : " + email);
+		return "redirect:/signup";
+	}
 }
 
 
