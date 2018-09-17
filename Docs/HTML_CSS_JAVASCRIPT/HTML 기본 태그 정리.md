@@ -31,11 +31,49 @@
 
   * HTML로 작성되어 있다는 것을 알려줌.
 
+  * html 파일 전체를 감싸는 태그
+
+    ```html
+    <html>
+        <head>
+            <meta>
+            <link>
+            <script></script>
+        </head>
+        <body>
+        </body>
+    </html>
+    ```
+
 * #### HEAD 태그 : `<head>`
 
   * 머리말에 해당함.
   * css나 javascript를 연결해줌.
   * 파비콘이나 문자열 인코딩과 같은 문서의 다양한 정보를 제공.
+
+  ```html
+  <head>
+      <meta charset="utf-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>타이틀</title>
+      <link rel="stylesheet" 
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+          crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+          crossorigin="anonymous"></script>
+  	<script 
+          src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
+          integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+          crossorigin="anonymous"></script>
+  	<script 
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+          integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+          crossorigin="anonymous"></script>
+  </head>
+  ```
 
 * META 태그 : `<meta>`
 
@@ -82,6 +120,15 @@
   * 제목에 해당
   * 숫자가 낮을수록 글씨가 큼
 
+  ```html
+  <h1>h1 : 블락태그 - 제목</h1>
+  <p>p : 블락태그 - 문장</p>
+  br : 줄바꿈<br>
+  <b>b : 인라인 태그 - 굵은 글씨</b><br>
+  <i>i : 인라인 태그 - 기울기 글씨</i><br>
+  hr : 블락 태그 - 밑줄<hr>
+  ```
+
 * HR 태그 : `<hr>`
 
   * 직선을 그림
@@ -90,6 +137,10 @@
 
   * 상자를 만듬
 
+    ```html
+    <div>div : 블락 태그 </div>
+    ```
+
 * SPAN 태그 : `<sapn>`
 
   * 요소 일부만 디자인이나 기능을 변경할 때 사용
@@ -97,10 +148,19 @@
 * IMG 태그 : `<img>`
 
   * 이미지를 가져옴
+
   * src 속성 : 가져올 이미지의 주소
+
   * alt 속성 : 이미지 불러오기 실패시 보여줄 문자열
+
   * width 속성 : 이미지의 가로의 길이
+
   * height 속성 : 이미지의 세로의 길이
+
+    ```html
+    <img src="data:image/jpeg;base64,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" 
+    	alt="고양이" width="100px" height="auto">
+    ```
 
 * INPUT 태그 : `<input>`
 
@@ -119,6 +179,24 @@
     * url : url 형식의 주소를 입력하는 창을 만듬
     * 등이 있음
 
+    ```html
+    <input type="text" name="" id="" placeholder="input : text">
+    <br>
+    <input type="checkbox"> 짜장면
+    <input type="checkbox"> 짬뽕
+    <br>
+    <input type="radio" name="gender" checked> 남자
+    <input type="radio" name="gender"> 여자
+    <br>
+    <input type="password" placeholder="input:passwoard"> 비밀번호
+    <br>
+    <input type="button" value="input:button">
+    <br>
+    <input type="file">
+    <br>
+    <input type="email" placeholder="input:email">
+    ```
+
 * BUTTON 태그 : `<button>`
 
   * 버튼을 생성하는 태그
@@ -126,6 +204,10 @@
     * button : 버튼을 생성
     * reset : 초기화
     * submit : 데이터를 전송하는 버튼으로 form태그와 같이 사용
+
+    ```html
+    <button>button: 인라인태그 - 버튼 </button>
+    ```
 
 * FORM 태그 : `<form>`
 
@@ -136,7 +218,12 @@
 * A 태그 : `<a>`
 
   * 클릭시 다른 주소로 이동하는 태그
+
   * href : 넘어갈 주소
+
+    ```html
+    <a href="http://www.naver.com">네이버</a>
+    ```
 
 * UL 태그 : `<ul>`
 
@@ -152,9 +239,33 @@
 
   * UL태그나 OL 태그안에서 사용되는 태그
 
+    ```html
+    과일
+    <ol>
+        <li>사과</li>
+        <li>포도</li>
+        <li>오렌지</li>
+    </ol>
+    과일
+    <ul>
+        <li>사과</li>
+        <li>포도</li>
+        <li>오렌지</li>
+    </ul>
+    ```
+
 * SELECT 태그 : `<select>`
 
   * 셀렉트 박스 창을 만드는 태그
+
   * OPTION태그를 이용하여 여러 내용을 입력
+
+    ```html
+    <select>
+        <option value="전체">전체</option>
+        <option value="제목">제목</option>
+        <option value="내용">내용</option>
+    </select>
+    ```
 
   
