@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    body>.div1{
+        color:red;
+    }
+    body .div2{
+        color: blue;
+    }
+    /* .div1{
+        color: green;
+    } */
+    div.div2{
+        color:yellow;
+    }
+    input[type=text]{
+        font-weight: bold;
+    }
+    input[readonly]{
+        color: gray;
+        background-color: yellow;
+    }
+    .div3:hover{
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <div>부모 자식 셀렉터 조합 예제 </div>
+    <div class="div1">Hello world</div>
+    <div>
+        <div class="div1">Hello world</div>
+    </div>
+    <div class="div1">Hello world</div>
+    <hr>
+    <div>부모 자손 셀렉터 조합 예제</div>
+    <div class="div2">Hi</div>
+    <div>
+        <div class="div2">Hi</div>
+    </div>
+    <hr>
+    <div>속성 섹렉터 예제</div>
+    <input type="text" >
+    <input type="email" readonly value="123@123">
+    <hr>
+    <div>가상 클래스 예제</div>
+    <div class="div3">Hello world</div>
+</body>
+</html>
