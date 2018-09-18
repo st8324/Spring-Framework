@@ -1,0 +1,39 @@
+@charset 'utf-8';
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+div{
+    font-weight: 100;
+    font-size: 14px;
+    color: black;
+    text-align: left;
+    display: block;
+    /* border-width: 1px;
+    border-style: solid;
+    border-color: red; */
+}
+.container{
+    width: 400px;
+    margin: 0 auto;
+}
+.input-form{
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    height: 25px;
+}
+.display-flex{
+    display: flex;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"]{
+    width: 300px;
+}
+#submit{
+    margin-left: 100px;
+    width: 300px;
+    height: 30px;
+}
