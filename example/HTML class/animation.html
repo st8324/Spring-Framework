@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		@keyframes textColorAni{
+			0%	{ color: red;}
+			25%	{	color: blue;}
+			50%	{	color: green;}
+			75%	{	color: yellow;}
+			100%{	color: red;}
+		}
+		@keyframes textScaleAni{
+			0%	{	font-size: 500%;}
+			50%	{	font-size: 100%;}
+			100%{	font-size: 500%;}
+		}
+		@keyframes introAni{
+			0%	{	opacity: 0; }
+			100%{	opacity: 1;	}
+		}
+		p{
+			font-size: 40px;
+			animation-name: textColorAni;
+			animation-duration: 4s;
+			animation-iteration-count: infinite;
+		}
+		.scale{
+			animation-name: textScaleAni;
+			animation-duration: 4s;
+			animation-iteration-count: infinite;
+		}
+		.intro{
+			animation-name: introAni;
+			animation-duration: 6s;
+		}
+	</style>
+</head>
+<body>
+	<p>안녕하세요.</p>
+	<span class="scale">꽝</span>
+	<div class="intro">인트로</div>
+</body>
+</html>
