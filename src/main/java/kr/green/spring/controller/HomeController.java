@@ -4,16 +4,21 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.green.spring.dao.AccountDao;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+	@Autowired
+	private AccountDao accountDao;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -21,13 +26,17 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model
-			,Integer num, Integer num2, Integer res) {
-		model.addAttribute("num", num);
-		model.addAttribute("num2", num2);
-		model.addAttribute("res", res);
-		return "home";
+	public String homeGet() {
+		return "member/signin";
 	}
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public String homePost(String id) {
+		String email = accountDao.getEmail(id);
+		if(email == null)
+			return "redirect:/";
+		return "redirect:/test";
+	}
+	
 	@RequestMapping(value="/test", method=RequestMethod.GET)
 	public String testGet(Model model) {
 		model.addAttribute("company","그린");
