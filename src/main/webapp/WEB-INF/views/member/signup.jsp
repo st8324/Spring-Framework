@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-		<form action="" method="get">
+		<form action="" method="post">
 			<div class="display-flex">
 				<div class="input-form"> 아이디 </div>
 				<input type="text" name="id">

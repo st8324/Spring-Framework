@@ -6,4 +6,11 @@
   <select id="getEmail" resultType="String">
     select email from account where id = #{id}
   </select>
+  <select id="getPw" resultType="String">
+    select pw from account where id = #{id}
+  </select>
+  <insert id="setAccount">
+  	insert into account (id,pw,email,gender)
+  		values (#{id}, #{pw}, #{email}, #{gender})
+  </insert>
 </mapper>

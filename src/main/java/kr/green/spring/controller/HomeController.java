@@ -30,9 +30,9 @@ public class HomeController {
 		return "member/signin";
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String homePost(String id) {
-		String email = accountDao.getEmail(id);
-		if(email == null)
+	public String homePost(String id,String pw) {
+		String dbPw = accountDao.getPw(id);
+		if(dbPw.compareTo(pw) != 0)
 			return "redirect:/";
 		return "redirect:/test";
 	}
@@ -62,12 +62,16 @@ public class HomeController {
 	@RequestMapping(value="/signup",method=RequestMethod.POST)
 	public String signupPost(String id, String pw, 
 		String pwConfirm, String gender, String email) {
+		String emails = accountDao.getEmail(id);
+		if(emails != null)
+			return "redirect:/signup";
+		accountDao.setAccount(id, pw, email, gender);
 		System.out.println("id : " + id);
 		System.out.println("pw : " + pw);
 		System.out.println("pwConfirm : " + pwConfirm);
 		System.out.println("gender : " + gender);
 		System.out.println("email : " + email);
-		return "redirect:/signup";
+		return "redirect:/";
 	}
 	@RequestMapping(value="/signin", method=RequestMethod.GET)
 	public String signinGet() {

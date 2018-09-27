@@ -13,14 +13,21 @@
 		<form method="POST">
 			<div>
 				<label for="">아이디</label>
-				<input type="text" name="id" id="">
+				<input type="text" name="id">
 			</div>
 			<div>
 				<label for="">비밀번호</label>
-				<input type="text" name="pw">
+				<input type="password" name="pw">
 			</div>
 			<button type="submit">로그인</button>
 		</form>
 	</div>
+	<a href="<%= request.getContextPath() %>/signup">회원가입</a>
 </body>
 </html>
+
+
+
+
+
+
