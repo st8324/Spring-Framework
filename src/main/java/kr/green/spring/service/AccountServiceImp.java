@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.spring.dao.AccountDao;
+import kr.green.spring.vo.AccountVo;
 
 @Service
 public class AccountServiceImp implements AccountService{
@@ -11,20 +12,20 @@ public class AccountServiceImp implements AccountService{
 	AccountDao accountDao;
 	
 	@Override
-	public boolean signin(String id, String pw) {
-		String dbPw = accountDao.getPw(id);
-		if(dbPw == null || dbPw.compareTo(pw) != 0)
+	public boolean signin(AccountVo accountVo) {
+		String dbPw = accountDao.getPw(accountVo.getId());
+		if(dbPw == null || dbPw.compareTo(accountVo.getPw()) != 0)
 			return false;
 		return true;
 	}
 
 	@Override
-	public boolean signup(String id, String pw, String email, String gender) {
+	public boolean signup(AccountVo accountVo) {
 		//DB에서 email값에 null값 허용하지 않은 경우만 사용 가능
-		String emails = accountDao.getEmail(id);
+		String emails = accountDao.getEmail(accountVo.getId());
 		if(emails != null)
 			return false;
-		accountDao.setAccount(id, pw, email, gender);
+		accountDao.setAccount(accountVo);
 		return true;
 	}
 }

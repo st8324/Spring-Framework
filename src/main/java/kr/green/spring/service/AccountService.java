@@ -1,7 +1,8 @@
 package kr.green.spring.service;
 
+import kr.green.spring.vo.AccountVo;
+
 public interface AccountService {
-	public boolean signin(String id, String pw);
-	public boolean signup(String id, String pw,
-			String email, String gender);
+	public boolean signin(AccountVo accountVo);
+	public boolean signup(AccountVo accountVo);
 }

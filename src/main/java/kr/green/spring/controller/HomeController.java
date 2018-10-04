@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.green.spring.service.AccountService;
+import kr.green.spring.vo.AccountVo;
 
 /**
  * Handles requests for the application home page.
@@ -28,12 +29,12 @@ public class HomeController {
 		return "member/signin";
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String homePost(String id,String pw, Model model) {
-		boolean isLogin = accountService.signin(id, pw);
+	public String homePost(AccountVo accountVo, Model model) {
+		boolean isLogin = accountService.signin(accountVo);
 		
 		if(!isLogin)
 			return "redirect:/";
-		model.addAttribute("id", id);
+		model.addAttribute("id", accountVo.getId());
 		return "redirect:/test";
 	}
 	
@@ -59,10 +60,13 @@ public class HomeController {
 	public String signupGet() {
 		return "member/signup";
 	}
+	/*
+	 * 매개변수를 AccountVo 객체를 이용하면 jsp에서 name이 id에 해당하는 정보가
+	 * AccountVo의 멤버변수 id에 저장이 된다.
+	 * */
 	@RequestMapping(value="/signup",method=RequestMethod.POST)
-	public String signupPost(String id, String pw, 
-		String pwConfirm, String gender, String email) {
-		if(accountService.signup(id, pw, email, gender))
+	public String signupPost(AccountVo accountVo) {
+		if(accountService.signup(accountVo))
 			return "redirect:/";
 		return "redirect:/signup";
 	}
