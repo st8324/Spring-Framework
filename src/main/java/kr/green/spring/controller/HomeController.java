@@ -1,7 +1,5 @@
 package kr.green.spring.controller;
 
-import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.green.spring.dao.AccountDao;
+import kr.green.spring.service.AccountService;
 
 /**
  * Handles requests for the application home page.
@@ -18,7 +16,7 @@ import kr.green.spring.dao.AccountDao;
 @Controller
 public class HomeController {
 	@Autowired
-	private AccountDao accountDao;
+	private AccountService accountService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -30,16 +28,18 @@ public class HomeController {
 		return "member/signin";
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String homePost(String id,String pw) {
-		String dbPw = accountDao.getPw(id);
-		if(dbPw.compareTo(pw) != 0)
+	public String homePost(String id,String pw, Model model) {
+		boolean isLogin = accountService.signin(id, pw);
+		
+		if(!isLogin)
 			return "redirect:/";
+		model.addAttribute("id", id);
 		return "redirect:/test";
 	}
 	
 	@RequestMapping(value="/test", method=RequestMethod.GET)
-	public String testGet(Model model) {
-		model.addAttribute("company","그린");
+	public String testGet(Model model,String id) {
+		model.addAttribute("id",id);
 		return "test/test";
 	}
 	@RequestMapping(value="/test", method=RequestMethod.POST)
@@ -62,16 +62,9 @@ public class HomeController {
 	@RequestMapping(value="/signup",method=RequestMethod.POST)
 	public String signupPost(String id, String pw, 
 		String pwConfirm, String gender, String email) {
-		String emails = accountDao.getEmail(id);
-		if(emails != null)
-			return "redirect:/signup";
-		accountDao.setAccount(id, pw, email, gender);
-		System.out.println("id : " + id);
-		System.out.println("pw : " + pw);
-		System.out.println("pwConfirm : " + pwConfirm);
-		System.out.println("gender : " + gender);
-		System.out.println("email : " + email);
-		return "redirect:/";
+		if(accountService.signup(id, pw, email, gender))
+			return "redirect:/";
+		return "redirect:/signup";
 	}
 	@RequestMapping(value="/signin", method=RequestMethod.GET)
 	public String signinGet() {

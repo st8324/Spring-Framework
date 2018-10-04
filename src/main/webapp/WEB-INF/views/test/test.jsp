@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	여기는 ${company}입니다.
-	<form action="/spring/test" method="post">
-		<input name="num">
-		<input name="num2">
-		<button type="submit">제출</button>
-	</form>
+	${id}님 환영합니다.
 </body>
 </html>
