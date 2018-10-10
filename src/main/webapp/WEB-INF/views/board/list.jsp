@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/global.css">
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Popper JS -->
@@ -18,8 +19,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2>Bordered Table</h2>
-		<p>The .table-bordered class adds borders on all sides of the table and the cells:</p>            
+		<h1>게시판 리스트</h2>
 		<table class="table table-bordered">
 		  <thead>
 		    <tr>
@@ -33,7 +33,7 @@
 		  	<c:forEach var="board" items="${list}">
 			    <tr>
 			      <td>${board.num}</td>
-			      <td>${board.title}</td>
+			      <td><a href="<%= request.getContextPath() %>/board/detail?num=${board.num}">${board.title}</a></td>
 			      <td>${board.author}</td>
 			      <td>${board.register_date}</td>
 			    </tr>

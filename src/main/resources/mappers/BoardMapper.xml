@@ -11,4 +11,7 @@
 		insert into board(title,contents,author,file)
 		value(#{title},#{contents},#{author},#{file})
 	</insert>
+	<select id="getBoard" resultType="kr.green.spring.vo.BoardVo">
+		select * from board where num = #{num}
+	</select>
 </mapper>

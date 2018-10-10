@@ -26,4 +26,9 @@ public class BoardServiceImp implements
 		
 	}
 
+	@Override
+	public BoardVo getBoard(int num) {
+		return boardDao.getBoard(num);
+	}
+
 }

@@ -3,6 +3,15 @@
 .float-right{
 	float: right;
 }
-input.form-control[readonly]{
+input.form-control[readonly],
+textarea.form-control[readonly]{
 	background-color: white;
+}
+a{
+	color: black;
+	text-decoration: none;
+}
+a:hover{
+	color: black;
+	font-weight: bold;
 }

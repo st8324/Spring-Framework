@@ -37,4 +37,18 @@ public class BoardController {
 		boardService.registerBoard(boardVo);
 		return "redirect:/board/list";
 	}
+	@RequestMapping(value="/board/detail",
+			method=RequestMethod.GET)
+	public String boardDetailGet(int num, Model model) {
+		BoardVo boardVo = boardService.getBoard(num);
+		model.addAttribute("board", boardVo);
+		return "board/detail";
+	}
 }
+
+
+
+
+
+
+
