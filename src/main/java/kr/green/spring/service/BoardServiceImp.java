@@ -31,4 +31,9 @@ public class BoardServiceImp implements
 		return boardDao.getBoard(num);
 	}
 
+	@Override
+	public void deleteBoard(int num) {
+		boardDao.deleteBoard(num);
+	}
+
 }

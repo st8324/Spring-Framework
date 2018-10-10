@@ -38,10 +38,10 @@
                 class="form-control" readonly>${board.contents}</textarea>
         </div>
         <a href="<%= request.getContextPath() %>/board/list"><button type="button" class="btn btn-primary">목록</button></a>
-        <a href="<%= request.getContextPath() %>/board/modify">
+        <a href="<%= request.getContextPath() %>/board/modify?num=${board.num}">
             <button type="button" class="btn btn-primary float-right">수정</button>
         </a>
-        <a href="<%= request.getContextPath() %>/board/delete">
+        <a href="<%= request.getContextPath() %>/board/delete?num=${board.num}">
             <button type="button" class="btn btn-primary float-right">삭제</button>
         </a>
 	</div>
