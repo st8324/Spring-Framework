@@ -22,25 +22,28 @@
 <body>
 	<div class="container">
 		<h1>게시판 상세</h1>
-		<form method="POST">
-			<div class="form-group">
-				<label for="title">제목</label>
-                <input type="text" name="title" id="title" 
-                    class="form-control" readonly value="${board.title}">
-			</div>
-			<div class="form-group">
-				<label for="author">작성자</label>
-                <input type="text" name="author" id="author" class="form-control" 
-                    readonly value="${board.author}">
-			</div>
-			<div class="form-group">
-				<label for="contents">내용</label>
-                <textarea name="contents" id="contents" rows="10" 
-                    class="form-control" readonly>${board.contents}</textarea>
-			</div>
-			<a href="<%= request.getContextPath() %>/board/list"><button type="button" class="btn btn-primary">목록</button></a>
-			<button type="submit" class="btn btn-primary float-right">등록</button>
-		</form>
+        <div class="form-group">
+            <label for="title">제목</label>
+            <input type="text" name="title" id="title" 
+                class="form-control" readonly value="${board.title}">
+        </div>
+        <div class="form-group">
+            <label for="author">작성자</label>
+            <input type="text" name="author" id="author" class="form-control" 
+                readonly value="${board.author}">
+        </div>
+        <div class="form-group">
+            <label for="contents">내용</label>
+            <textarea name="contents" id="contents" rows="10" 
+                class="form-control" readonly>${board.contents}</textarea>
+        </div>
+        <a href="<%= request.getContextPath() %>/board/list"><button type="button" class="btn btn-primary">목록</button></a>
+        <a href="<%= request.getContextPath() %>/board/modify">
+            <button type="button" class="btn btn-primary float-right">수정</button>
+        </a>
+        <a href="<%= request.getContextPath() %>/board/delete">
+            <button type="button" class="btn btn-primary float-right">삭제</button>
+        </a>
 	</div>
 </body>
 </html>
