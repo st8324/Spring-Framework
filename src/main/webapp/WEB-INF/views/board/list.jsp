@@ -40,6 +40,9 @@
 		    </c:forEach>
 		  </tbody>
 		</table>
+		<a href="<%= request.getContextPath() %>/board/register">
+			<button class="btn btn-primary"> 등록 </button>
+		</a>
 	</div>
 </body>
 </html>

@@ -6,4 +6,6 @@ import kr.green.spring.vo.BoardVo;
 
 public interface BoardDao {
 	public List<BoardVo> getBoardLists();
+
+	public void registerBoard(BoardVo boardVo);
 }

@@ -7,4 +7,8 @@
 		resultType="kr.green.spring.vo.BoardVo">
 		select * from board
 	</select>
+	<insert id="registerBoard">
+		insert into board(title,contents,author,file)
+		value(#{title},#{contents},#{author},#{file})
+	</insert>
 </mapper>

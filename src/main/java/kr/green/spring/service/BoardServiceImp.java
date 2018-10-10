@@ -20,4 +20,10 @@ public class BoardServiceImp implements
 		return boardDao.getBoardLists();
 	}
 
+	@Override
+	public void registerBoard(BoardVo boardVo) {
+		boardDao.registerBoard(boardVo);
+		
+	}
+
 }
