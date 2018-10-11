@@ -1,6 +1,7 @@
 package kr.green.spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.green.spring.dao.AccountDao;
@@ -10,21 +11,26 @@ import kr.green.spring.vo.AccountVo;
 public class AccountServiceImp implements AccountService{
 	@Autowired
 	AccountDao accountDao;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	public AccountVo signin(AccountVo accountVo) {
 		AccountVo user = accountDao.getAccount(accountVo.getId());
-		if(user == null || user.getPw().compareTo(accountVo.getPw()) != 0)
+		
+		if(user == null || 
+			!passwordEncoder.matches(accountVo.getPw(), user.getPw()))
 			return null;
 		return user;
 	}
 
 	@Override
 	public boolean signup(AccountVo accountVo) {
-		//DB에서 email값에 null값 허용하지 않은 경우만 사용 가능
-		String emails = accountDao.getEmail(accountVo.getId());
-		if(emails != null)
+		AccountVo user = accountDao.getAccount(accountVo.getId());
+		if(user != null)
 			return false;
+		String encPw = passwordEncoder.encode(accountVo.getPw());
+		accountVo.setPw(encPw);
 		accountDao.setAccount(accountVo);
 		return true;
 	}
