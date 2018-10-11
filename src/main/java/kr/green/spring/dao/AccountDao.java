@@ -8,4 +8,5 @@ public interface AccountDao {
 	public String getEmail(String id);
 	public String getPw(String id);
 	public void setAccount(AccountVo accountVo);
+	public AccountVo getAccount(String id);
 }

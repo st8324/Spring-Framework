@@ -23,11 +23,11 @@ public class AccountController {
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String homePost(AccountVo accountVo, Model model) {
-		boolean isLogin = accountService.signin(accountVo);
+		AccountVo user = accountService.signin(accountVo);
 		
-		if(!isLogin)
+		if(user == null)
 			return "redirect:/";
-		model.addAttribute("id", accountVo.getId());
+		model.addAttribute("user", user);
 		return "redirect:/board/list";
 	}
 	

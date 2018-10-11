@@ -12,11 +12,11 @@ public class AccountServiceImp implements AccountService{
 	AccountDao accountDao;
 	
 	@Override
-	public boolean signin(AccountVo accountVo) {
-		String dbPw = accountDao.getPw(accountVo.getId());
-		if(dbPw == null || dbPw.compareTo(accountVo.getPw()) != 0)
-			return false;
-		return true;
+	public AccountVo signin(AccountVo accountVo) {
+		AccountVo user = accountDao.getAccount(accountVo.getId());
+		if(user == null || user.getPw().compareTo(accountVo.getPw()) != 0)
+			return null;
+		return user;
 	}
 
 	@Override
