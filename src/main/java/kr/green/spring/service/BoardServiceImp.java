@@ -36,4 +36,13 @@ public class BoardServiceImp implements
 		boardDao.deleteBoard(num);
 	}
 
+	@Override
+	public void updateBoard(BoardVo boardVo) {
+		boardDao.updateBoard(boardVo);
+	}
 }
+
+
+
+
+

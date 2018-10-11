@@ -1,5 +1,6 @@
 package kr.green.spring.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class BoardVo {
@@ -35,10 +36,11 @@ public class BoardVo {
 	}
 
 
-	public Date getRegister_date() {
-		return register_date;
+	public String getRegister_date() {
+		SimpleDateFormat format 
+			= new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(register_date);
 	}
-
 
 	public void setNum(int num) {
 		this.num = num;
