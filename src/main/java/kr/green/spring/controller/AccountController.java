@@ -1,5 +1,8 @@
 package kr.green.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,17 +48,13 @@ public class AccountController {
 			return "redirect:/";
 		return "redirect:/signup";
 	}
-	@RequestMapping(value="/signin", method=RequestMethod.GET)
-	public String signinGet() {
-		return "member/signin";
-	}
-	@RequestMapping(value="/signin", method=RequestMethod.POST)
-	public String signinPost(String id, String pw) {
-		System.out.println("id : " + id);
-		System.out.println("pw : " + pw);
-		return "redirect:/signin";
-	}
 	
+	@RequestMapping(value="/signout")
+	public String signout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("user");
+		return "redirect:/";
+	}
 }
 
 

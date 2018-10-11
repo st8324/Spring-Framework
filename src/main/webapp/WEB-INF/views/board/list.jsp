@@ -20,6 +20,7 @@
 <body>
 	<div class="container">
 		<h1>게시판 리스트</h2>
+		<a href="<%= request.getContextPath()%>/signout">로그아웃</a>
 		<table class="table table-bordered">
 		  <thead>
 		    <tr>
