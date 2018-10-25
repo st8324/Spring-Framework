@@ -41,7 +41,7 @@
 		  	<c:forEach var="board" items="${list}">
 			    <tr>
 			      <td>${board.num}</td>
-			      <td><a href="<%= request.getContextPath() %>/board/detail?num=${board.num}">${board.title}</a></td>
+			      <td><a href="<%= request.getContextPath() %>/board/detail?num=${board.num}&page=${pageMaker.criteria.page}">${board.title}</a></td>
 			      <td>${board.author}</td>
 			      <td>${board.register_date}</td>
 			    </tr>

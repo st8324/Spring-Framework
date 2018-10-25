@@ -64,9 +64,14 @@ public class BoardController {
 	}
 	@RequestMapping(value="/board/detail",
 			method=RequestMethod.GET)
-	public String boardDetailGet(int num, Model model) {
+	public String boardDetailGet(Model model, Integer num, Integer page) {
+		if(num == null)
+			return "redirect:/board/list";
+		if(page == null)
+			page = 1;
 		BoardVo boardVo = boardService.getBoard(num);
 		model.addAttribute("board", boardVo);
+		model.addAttribute("page", page);
 		return "board/detail";
 	}
 	@RequestMapping(value="/board/delete",
@@ -77,19 +82,26 @@ public class BoardController {
 	}
 	@RequestMapping(value="/board/modify",
 			method=RequestMethod.GET)
-	public String boardModifyGet(Integer num, Model model) {
+	public String boardModifyGet(Integer num, Integer page, Model model) {
 		//정상 경로로 수정페이지에 접근한게 아니면
 		if(num == null) {
 			return "redirect:/board/list";
 		}
+		if(page == null){
+			page = 1;
+		}
 		BoardVo boardVo = boardService.getBoard(num);
 		model.addAttribute("board",boardVo);
+		model.addAttribute("page", page);
 		return "board/modify";
 	}
 	@RequestMapping(value="/board/modify",
 			method=RequestMethod.POST)
-	public String boardModifyPost(BoardVo boardVo) {
+	public String boardModifyPost(BoardVo boardVo,Integer page, Model model) {
 		boardService.updateBoard(boardVo);
+		if(page == null)
+			page = 1;
+		model.addAttribute("page",page);
 		return "redirect:/board/list";
 	}
 }

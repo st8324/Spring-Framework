@@ -17,7 +17,8 @@ public class Criteria {
 		 * 	이상이 되도록 설정 */
 		if(perPageNum <= 4)
 			this.perPageNum = 5;
-		this.perPageNum = perPageNum;
+		else
+			this.perPageNum = perPageNum;
 	}
 	public void setPage(int page) {
 		/*	현재 페이지가 1페이지 이상이 되도록 설정 */
