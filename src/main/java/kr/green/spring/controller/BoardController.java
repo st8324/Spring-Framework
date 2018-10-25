@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.green.spring.pagination.Criteria;
+import kr.green.spring.pagination.PageMaker;
 import kr.green.spring.service.BoardService;
 import kr.green.spring.vo.AccountVo;
 import kr.green.spring.vo.BoardVo;
@@ -22,10 +24,24 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/list", 
 			method=RequestMethod.GET)
-	public String boaldListGet(Model model) {
+	public String boaldListGet(Model model, Integer page) {
+		if(page == null)
+			page = 1;
+		int totalCount = boardService.getCountBoardLists();//	전체 컨텐츠의 갯수를 가져와야함
+		Criteria cri = new Criteria();
+		cri.setPerPageNum(2);
+		cri.setPage(page);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(cri);
+		pageMaker.setDisplayPageNum(10);
+		pageMaker.setTotalCount(totalCount);
+		System.out.println(pageMaker);
+		
 		ArrayList list = null;
-		list = (ArrayList)boardService.getBoardLists();
+		list = (ArrayList)boardService.getBoardLists(cri);
 		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", pageMaker);
 		return "board/list";
 	}
 	

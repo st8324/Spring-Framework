@@ -5,7 +5,10 @@
 <mapper namespace="kr.green.spring.dao.BoardDao">
 	<select id="getBoardLists" 
 		resultType="kr.green.spring.vo.BoardVo">
-		select * from board order by num DESC
+		select * 
+			from board 
+			order by num DESC
+			limit #{cri.startPage}, #{cri.perPageNum}
 	</select>
 	<insert id="registerBoard">
 		insert into board(title,contents,author,file)
@@ -23,6 +26,10 @@
 				contents = #{contents}
 			where num = #{num}
 	</update>
+	<select id="getCountBoardLists" resultType="int">
+		select count(num) 
+			from board
+	</select>
 </mapper>
 
 

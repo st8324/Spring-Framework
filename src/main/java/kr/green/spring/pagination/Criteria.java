@@ -1,4 +1,4 @@
-package kr.green.spring.paganation;
+package kr.green.spring.pagination;
 
 public class Criteria {
 	//한페이지당 보여지는 컨텐츠 수(게시글 수)
@@ -32,7 +32,19 @@ public class Criteria {
 	public int getStartPage() {
 		return (page-1)*perPageNum;
 	}
+	@Override
+	public String toString() {
+		return "Criteria [perPageNum=" + perPageNum + ", page=" + page + "]";
+	}
+	public Criteria() {
+		page = 1;
+		perPageNum = 10;
+	}
 }
+
+
+
+
 
 
 

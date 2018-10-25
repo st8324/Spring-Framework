@@ -2,10 +2,14 @@ package kr.green.spring.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import kr.green.spring.pagination.Criteria;
 import kr.green.spring.vo.BoardVo;
 
 public interface BoardDao {
-	public List<BoardVo> getBoardLists();
+	public List<BoardVo> getBoardLists
+			(@Param("cri")Criteria cri);
 
 	public void registerBoard(BoardVo boardVo);
 
@@ -14,4 +18,6 @@ public interface BoardDao {
 	public void deleteBoard(int num);
 
 	public void updateBoard(BoardVo boardVo);
+	
+	public int getCountBoardLists();
 }
