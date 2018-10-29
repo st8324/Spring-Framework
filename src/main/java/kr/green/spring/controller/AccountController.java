@@ -21,15 +21,20 @@ public class AccountController {
 	private AccountService accountService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homeGet() {
+	public String homeGet(Integer loginOk, Model model) {
+		if(loginOk == null)
+			loginOk = -1;
+		model.addAttribute("loginOk", loginOk);
 		return "member/signin";
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String homePost(AccountVo accountVo, Model model) {
 		AccountVo user = accountService.signin(accountVo);
 		
-		if(user == null)
+		if(user == null) {
+			model.addAttribute("loginOk", 0);
 			return "redirect:/";
+		}
 		model.addAttribute("user", user);
 		return "redirect:/board/list";
 	}
