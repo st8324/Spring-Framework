@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	/* 함수 생성 방법1 */
+	/* 자바와의 차이점은 function이라는 키워드가 나와야 하고
+	리턴 타입을 따로 지정하지 않고 매개변수의 자료형을 입력하지
+	않음
+	*/
+	print1("Hello");
+	function print1(arg){
+		console.log(arg);
+	}
+	
+	/* 함수 생성 방법2 */
+	/* 함수 구현 마지막에 ;를 붙여야 함.
+	함수 생성 방법1과 가장 큰 차이는 print1은 실행 코드가 
+	함수 생성 코드 앞에	있어도 실행되지만 print2는 실행 코드가 
+	함수 생성 코드 앞에 있으면 안된다.
+	*/
+	//print2("world");//에러 발생
+	var print2 = function(arg){
+		console.log(arg);
+	};
+	print2("world");
+	function sum1(num1, num2){
+		return num1+num2;
+	}
+	console.log(sum1(1,10));
+
+	/* 자바스크립트에서 함수는 리턴이 필요한 곳에서 리턴 타입이 없는
+	함수를 호출해도 에러가 발생하지 않고 undefined 값을 발생시킴
+	*/
+	function sum2(num1,num2){
+		var res = num1+num2;
+	}
+	console.log(sum2(1,10));
+	/* 자바스크립트에서는 매개변수가 적으면 해당 자리에 undefined
+	가 들어가고 많으면 뒷부분을 버린다.
+	*/
+	console.log(sum1());
+	console.log(sum1(1));
+	console.log(sum1(1,2,3));
+	/* 아래와 같이 arguments.length를 이용하여 매개변수가 가변인
+	상황을 처리할 수 있지만 유지보수 측면에서 피하는것이 좋다.*/
+	function sum3(num1, num2){
+		var len = arguments.length;//매개변수의 갯수를 len에 저장
+		if(len == 0){
+			return 0;
+		}else if(len == 1){
+			return num1;
+		}else{
+			return num1 + num2;
+		}
+	}
+	console.log(sum3());
+	console.log(sum3(1));
+	console.log(sum3(1,2,3));
+	/* 콜백 함수 예제
+	콜백 : 이벤트(상황변화)가 발생하면 호출하도록 알려며 비동기화 방식
+	이다.
+	동기화 : 한쪽이 작업하면 작업이 끝날때까지 멈춰있음
+	비동기화 : 한쪽이 작업하더라도 다른쪽에서 작업이 진행 */
+	function Hello(){
+		console.log("콜백함수예제 : Hello");
+	}
+	setTimeout(Hello, 5000);
+	console.log("콜백함수예제 : 메인");
+	</script>
+</body>
+</html>
