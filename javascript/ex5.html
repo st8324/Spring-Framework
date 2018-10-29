@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<button onclick="openWindow()">클릭</button>
+	<button onclick="closeWindow()">닫기</button>
+	<button onclick="goBack()">뒤로</button>
+	<button onclick="goForward()">앞으로</button>
+	<button onclick="go(-2)">-2</button>
+	<script>
+		/* 브라우저 객체 모델 (BOM) 
+		window
+		  - document : html문서
+			- location
+			- history
+			- screen
+			- navigator
+		*/
+		/* window : 브라우저 창 하나당 하나의 객체가 생성 */
+		//window.alert("Hello world");
+		var val = 1;
+		//alert(window.val);
+		var my;
+		function openWindow(){
+			my = window.open("http://127.0.0.1:5500/ex5.html","My","width=300, height=500");
+		}
+		function closeWindow(){
+			if(my){
+				my.close();
+			}
+		}
+		function goBack(){
+			history.back();
+		}
+		function goForward(){
+			history.forward();
+		}
+		function go(num){
+			history.go(num);
+		}
+	</script>
+</body>
+</html>
