@@ -55,5 +55,76 @@
 			</div>
 		</form>
 	</div>
+	<script type="text/javascript">
+	if(${signup} == 0){
+		alert('회원가입에 실패했습니다.');
+	}
+	var form = document.getElementsByTagName('form');
+	form[0].onsubmit = checkValid;
+	function checkValid(){
+		if(!checkValidId()){
+			alert("아이디는 5~12자로 숫자와 영문자로 이루어져있습니다.");
+			return false;
+		}
+		if(!checkValidPw()){
+			alert("비밀번호는 8~20자이며, 숫자와 영문자가 꼭 들어가야합니다.");
+			return false;
+		}
+		if(!checkValidPwConfirm()){
+			alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+			return false;
+		}
+		if(!checkValidEmail()){
+			alert("이메일을 입력해주세요.");
+			return false;
+		}
+		return true;
+	}
+	function checkValidEmail(){
+		var email = document.getElementsByName('email')[0].value;
+		if(email ==""){
+			return false;
+		}
+		return true;
+	}
+	function checkValidPw(){
+		var regexPw = /^(?=\w{8,20}$)\w*(\d[A-z]|[A-z]\d)\w*$/;
+		var pw = document.getElementsByName('pw')[0].value;
+		if(!checkRegex(regexPw,pw)){
+			return false;
+		}
+		return true;
+	}
+	function checkValidId(){
+		var regexId = /^\w{5,12}$/;
+		var id = document.getElementsByName('id')[0].value;
+		if(!checkRegex(regexId,id)){
+			return false;
+		}
+		return true;
+	}
+	function checkValidPwConfirm(){
+		var pw = document.getElementsByName('pw')[0].value;
+		var pwConfirm 
+			= document.getElementsByName('pwConfirm')[0].value;
+		if(pw != pwConfirm)
+			return false;
+		return true;
+	}
+	function checkRegex(regex, str){
+		if(!regex.test(str)){
+			return false;
+		}
+		return true;
+	}
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+

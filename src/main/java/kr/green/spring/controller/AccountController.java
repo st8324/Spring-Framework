@@ -21,9 +21,12 @@ public class AccountController {
 	private AccountService accountService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homeGet(Integer loginOk, Model model) {
+	public String homeGet(Integer loginOk,Integer signup, Model model) {
 		if(loginOk == null)
 			loginOk = -1;
+		if(signup == null)
+			signup = -1;
+		model.addAttribute("signup", signup);
 		model.addAttribute("loginOk", loginOk);
 		return "member/signin";
 	}
@@ -40,7 +43,11 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="/signup",method=RequestMethod.GET)
-	public String signupGet() {
+	public String signupGet(Model model, Integer signup) {
+		if(signup == null) {
+			signup = -1;
+		}
+		model.addAttribute("signup", signup);
 		return "member/signup";
 	}
 	/*
@@ -48,9 +55,12 @@ public class AccountController {
 	 * AccountVo의 멤버변수 id에 저장이 된다.
 	 * */
 	@RequestMapping(value="/signup",method=RequestMethod.POST)
-	public String signupPost(AccountVo accountVo) {
-		if(accountService.signup(accountVo))
+	public String signupPost(AccountVo accountVo, Model model) {
+		if(accountService.signup(accountVo)) {
+			model.addAttribute("signup", 1);
 			return "redirect:/";
+		}
+		model.addAttribute("signup", 0);
 		return "redirect:/signup";
 	}
 	
