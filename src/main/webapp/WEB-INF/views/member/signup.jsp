@@ -23,19 +23,22 @@
 		<form action="" method="post">
 			<div class="form-group">
 				<div class="input-form"> 아이디 </div>
-				<input type="text" name="id" 
+				<input type="text" name="id" id="id"
 					class="form-control">
 			</div>
+			<div id="id-error"></div>
 			<div class="form-group">
 				<div class="input-form"> 비밀번호 </div>
-				<input type="password" name="pw"
+				<input type="password" name="pw" id="pw"
 					class="form-control">
 			</div>
+			<div id="pw-error"></div>
 			<div class="form-group">
 				<div class="input-form"> 비밀번호 확인 </div>
-				<input type="password" name="pwConfirm"
+				<input type="password" name="pwConfirm" id="pwConfirm"
 					class="form-control">
 			</div>
+			<div id="pwConfirm-error"></div>
 			<div class="form-group">
 				<div class="input-form">성별</div>
 				<label for="male">남성</label>
@@ -47,41 +50,51 @@
 			</div>
 			<div class="form-group">
 				<div class="input-form">이메일</div>
-				<input type="email" name="email"
+				<input type="email" name="email" id="email"
 					class="form-control">
 			</div>
+			<div id="email-error"></div>
 			<div>
 				<button type="submit" id="submit" class="btn btn-primary">제출</button>
 			</div>
 		</form>
 	</div>
+	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript">
 	if(${signup} == 0){
 		alert('회원가입에 실패했습니다.');
 	}
-	var form = document.getElementsByTagName('form');
-	form[0].onsubmit = checkValid;
+	var form = $('form');
+	form.submit(checkValid);
 	function checkValid(){
+		/* id가 id-error인 요소 안의 html을 비움 */
+		$('#id-error').html('');
+		$('#pw-error').html('');
+		$('#pwConfirm-error').html('');
+		$('#email-error').html('');
+		var check = true;
 		if(!checkValidId()){
-			alert("아이디는 5~12자로 숫자와 영문자로 이루어져있습니다.");
-			return false;
+			$('#id-error').html('아이디는 5~12자로 숫자와 영문자로 이루어져있습니다.');
+			check = false;
 		}
 		if(!checkValidPw()){
-			alert("비밀번호는 8~20자이며, 숫자와 영문자가 꼭 들어가야합니다.");
-			return false;
+			$('#pw-error').html('비밀번호는 8~20자이며, 숫자와 영문자가 꼭 들어가야합니다.');
+			check = false;
 		}
 		if(!checkValidPwConfirm()){
-			alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-			return false;
+			$('#pwConfirm-error').html('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+			check = false;
 		}
 		if(!checkValidEmail()){
-			alert("이메일을 입력해주세요.");
-			return false;
+			$('#email-error').html('이메일을 입력해주세요.');
+			check = false;
 		}
+		if(!check)
+			return false;
 		return true;
 	}
 	function checkValidEmail(){
-		var email = document.getElementsByName('email')[0].value;
+		var email = $('#email').val();
 		if(email ==""){
 			return false;
 		}
@@ -89,7 +102,7 @@
 	}
 	function checkValidPw(){
 		var regexPw = /^(?=\w{8,20}$)\w*(\d[A-z]|[A-z]\d)\w*$/;
-		var pw = document.getElementsByName('pw')[0].value;
+		var pw = $('#pw').val();
 		if(!checkRegex(regexPw,pw)){
 			return false;
 		}
@@ -97,16 +110,15 @@
 	}
 	function checkValidId(){
 		var regexId = /^\w{5,12}$/;
-		var id = document.getElementsByName('id')[0].value;
+		var id = $('#id').val();
 		if(!checkRegex(regexId,id)){
 			return false;
 		}
 		return true;
 	}
 	function checkValidPwConfirm(){
-		var pw = document.getElementsByName('pw')[0].value;
-		var pwConfirm 
-			= document.getElementsByName('pwConfirm')[0].value;
+		var pw = $('#pw').val();
+		var pwConfirm = $('#pwConfirm').val();
 		if(pw != pwConfirm)
 			return false;
 		return true;
