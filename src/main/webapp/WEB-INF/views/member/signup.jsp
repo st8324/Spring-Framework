@@ -172,12 +172,12 @@
             id: {
                 required : "필수로입력하세요",
                 minlength : "최소 {0}글자이상이어야 합니다",
-                maxlength : "최대 {0}글자이상이하야 합니다"
+                maxlength : "최대 {0}글자이하이어야 합니다"
             },
             pw: {
                 required : "필수로입력하세요",
                 minlength : "최소 {0}글자이상이어야 합니다",
-                maxlength : "최대 {0}글자이상이하야 합니다",
+                maxlength : "최대 {0}글자이하이어야 합니다",
                 regex : "영문자, 숫자로 이루어져있으며 최소 하나이상 포함"
             },
             pwConfirm: {
