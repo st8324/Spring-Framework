@@ -16,6 +16,11 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<title>Document</title>
+	<style>
+	label.error{
+		color : red;
+	}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -26,19 +31,25 @@
 				<input type="text" name="id" id="id"
 					class="form-control">
 			</div>
-			<div id="id-error"></div>
+			<div>
+				<label id="id-error" class="error" for="id"></label>
+			</div>
 			<div class="form-group">
 				<div class="input-form"> 비밀번호 </div>
 				<input type="password" name="pw" id="pw"
 					class="form-control">
 			</div>
-			<div id="pw-error"></div>
+			<div>
+				<label id="pw-error" class="error" for="pw"></label>
+			</div>
 			<div class="form-group">
 				<div class="input-form"> 비밀번호 확인 </div>
 				<input type="password" name="pwConfirm" id="pwConfirm"
 					class="form-control">
 			</div>
-			<div id="pwConfirm-error"></div>
+			<div>
+				<label id="pwConfirm-error" class="error" for="pwConfirm"></label>
+			</div>
 			<div class="form-group">
 				<div class="input-form">성별</div>
 				<label for="male">남성</label>
@@ -53,19 +64,24 @@
 				<input type="email" name="email" id="email"
 					class="form-control">
 			</div>
-			<div id="email-error"></div>
+			<div>
+				<label id="email-error" class="error" for="email"></label>
+			</div>
 			<div>
 				<button type="submit" id="submit" class="btn btn-primary">제출</button>
 			</div>
 		</form>
 	</div>
+	
 	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath() %>/resources/js/jquery.validate.js"></script>
+	<script src="<%=request.getContextPath() %>/resources/js/additional-methods.js"></script>
 	<script type="text/javascript">
 	if(${signup} == 0){
 		alert('회원가입에 실패했습니다.');
 	}
 	var form = $('form');
-	form.submit(checkValid);
+	//form.submit(checkValid);
 	function checkValid(){
 		/* id가 id-error인 요소 안의 html을 비움 */
 		$('#id-error').html('');
@@ -129,6 +145,59 @@
 		}
 		return true;
 	}
+	$("form").validate({
+        rules: {
+            id: {
+                required : true,
+                minlength : 5,
+                maxlength : 12
+            },
+            pw: {
+                required : true,
+                minlength : 8,
+                maxlength : 20,
+                regex: /^\w*(\d[A-z]|[A-z]\d)\w*$/
+            },
+            pwConfirm: {
+                required : true,
+                equalTo : pw
+            },
+            email: {
+                required : true,
+                email : true
+            }
+        },
+        //규칙체크 실패시 출력될 메시지
+        messages : {
+            id: {
+                required : "필수로입력하세요",
+                minlength : "최소 {0}글자이상이어야 합니다",
+                maxlength : "최대 {0}글자이상이하야 합니다"
+            },
+            pw: {
+                required : "필수로입력하세요",
+                minlength : "최소 {0}글자이상이어야 합니다",
+                maxlength : "최대 {0}글자이상이하야 합니다",
+                regex : "영문자, 숫자로 이루어져있으며 최소 하나이상 포함"
+            },
+            pwConfirm: {
+                required : "필수로입력하세요",
+                equalTo : "비밀번호가 일치하지 않습니다."
+            },
+            email: {
+                required : "필수로입력하세요",
+                email : "메일규칙에 어긋납니다"
+            }
+        }
+    });
+	$.validator.addMethod(
+	    "regex",
+	    function(value, element, regexp) {
+	        var re = new RegExp(regexp);
+	        return this.optional(element) || re.test(value);
+	    },
+	    "Please check your input."
+	);
 	</script>
 </body>
 </html>
