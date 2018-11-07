@@ -22,7 +22,7 @@
 <body>
 	<div class="container">
 		<h1>게시판 수정</h1>
-		<form method="POST">
+		<form method="POST" action="<%=request.getContextPath()%>/board/modify">
 			<div class="form-group">
 				<label for="title">제목</label>
 				<input type="text" name="title" id="title" class="form-control" value="${board.title}">
@@ -35,10 +35,16 @@
 				<label for="contents">내용</label>
 				<textarea name="contents" id="contents" rows="10" class="form-control">${board.contents}</textarea>
 			</div>
+			<input type="hidden" value="${board.num}" name="num">
 			<input type="hidden" value="${page}" name="page">
-			<a href="<%= request.getContextPath() %>/board/list?page=${page}"><button type="button" class="btn btn-primary">목록</button></a>
+			<input type="hidden" value="${search}" name="search">
+			<a href="<%= request.getContextPath() %>/board/list?page=${page}&search=${search}"><button type="button" class="btn btn-primary">목록</button></a>
 			<button type="submit" class="btn btn-primary float-right">수정</button>
 		</form>
 	</div>
 </body>
 </html>
+
+
+
+

@@ -37,8 +37,8 @@
             <textarea name="contents" id="contents" rows="10" 
                 class="form-control" readonly>${board.contents}</textarea>
         </div>
-        <a href="<%= request.getContextPath() %>/board/list?page=${page}"><button type="button" class="btn btn-primary">목록</button></a>
-        <a href="<%= request.getContextPath() %>/board/modify?num=${board.num}&page=${page}">
+        <a href="<%= request.getContextPath() %>/board/list?page=${page}&search=${search}"><button type="button" class="btn btn-primary">목록</button></a>
+        <a href="<%= request.getContextPath() %>/board/modify?num=${board.num}&page=${page}&search=${search}">
             <button type="button" class="btn btn-primary float-right">수정</button>
         </a>
         <a href="<%= request.getContextPath() %>/board/delete?num=${board.num}">

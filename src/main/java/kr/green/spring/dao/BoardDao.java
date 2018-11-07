@@ -8,16 +8,31 @@ import kr.green.spring.pagination.Criteria;
 import kr.green.spring.vo.BoardVo;
 
 public interface BoardDao {
-	public List<BoardVo> getBoardLists
-			(@Param("cri")Criteria cri);
+	public List<BoardVo> getBoardListsByTitle
+		(@Param("cri")Criteria cri, @Param("search")String search);
+	public List<BoardVo> getBoardListsByAuthor
+		(@Param("cri")Criteria cri, @Param("search")String search);
+	public List<BoardVo> getBoardListsByContents
+		(@Param("cri")Criteria cri, @Param("search")String search);
 
-	public void registerBoard(BoardVo boardVo);
+	public void registerBoard(@Param("boardVo")BoardVo boardVo);
 
-	public BoardVo getBoard(int num);
+	public BoardVo getBoard(@Param("num")int num);
 
-	public void deleteBoard(int num);
+	public void deleteBoard(@Param("num")int num);
 
-	public void updateBoard(BoardVo boardVo);
+	public void updateBoard(@Param("boardVo")BoardVo boardVo);
 	
-	public int getCountBoardLists();
+	public int getCountBoardListsByTitle(@Param("search")String search);
+	public int getCountBoardListsByAuthor(@Param("search")String search);
+	public int getCountBoardListsByContents(@Param("search")String search);
+	
 }
+
+
+
+
+
+
+
+

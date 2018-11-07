@@ -3,16 +3,33 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.spring.dao.BoardDao">
-	<select id="getBoardLists" 
+	<select id="getBoardListsByTitle" 
 		resultType="kr.green.spring.vo.BoardVo">
 		select * 
 			from board 
+			where title like #{search}
+			order by num DESC
+			limit #{cri.startPage}, #{cri.perPageNum}
+	</select>
+	<select id="getBoardListsByAuthor" 
+		resultType="kr.green.spring.vo.BoardVo">
+		select * 
+			from board 
+			where author like #{search}
+			order by num DESC
+			limit #{cri.startPage}, #{cri.perPageNum}
+	</select>
+	<select id="getBoardListsByContents" 
+		resultType="kr.green.spring.vo.BoardVo">
+		select * 
+			from board 
+			where contents like #{search}
 			order by num DESC
 			limit #{cri.startPage}, #{cri.perPageNum}
 	</select>
 	<insert id="registerBoard">
 		insert into board(title,contents,author,file)
-		value(#{title},#{contents},#{author},#{file})
+		value(#{boardVo.title},#{boardVo.contents},#{boardVo.author},#{boardVo.file})
 	</insert>
 	<select id="getBoard" resultType="kr.green.spring.vo.BoardVo">
 		select * from board where num = #{num}
@@ -22,13 +39,24 @@
 	</delete>
 	<update id="updateBoard">
 		update board 
-			set title = #{title},
-				contents = #{contents}
-			where num = #{num}
+			set title = #{boardVo.title},
+				contents = #{boardVo.contents}
+			where num = #{boardVo.num}
 	</update>
-	<select id="getCountBoardLists" resultType="int">
+	<select id="getCountBoardListsByTitle" resultType="int">
 		select count(num) 
 			from board
+			where title like #{search}
+	</select>
+	<select id="getCountBoardListsByAuthor" resultType="int">
+		select count(num) 
+			from board
+			where author like #{search}
+	</select>
+	<select id="getCountBoardListsByContents" resultType="int">
+		select count(num) 
+			from board
+			where contents like #{search}
 	</select>
 </mapper>
 
