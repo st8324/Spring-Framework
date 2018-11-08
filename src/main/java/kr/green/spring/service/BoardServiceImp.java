@@ -65,7 +65,7 @@ public class BoardServiceImp implements
 		else
 			return boardDao.getCountBoardListsByContents(search);
 	}
-
+	
 	@Override
 	public PageMaker getPageMaker(String search, Integer page, int perPageNum, int displayPageNum, Integer type) {
 		if(search == null) {
