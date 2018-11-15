@@ -67,9 +67,11 @@ public class BoardController {
 	@RequestMapping(value="/board/register",
 			method=RequestMethod.POST)
 	public String boardRegisterPost(BoardVo boardVo, MultipartFile files) throws Exception {
-		
-		String filepath = UploadFileUtils.uploadFile(uploadPath, files.getOriginalFilename(),files.getBytes());
-		boardVo.setFile(filepath);
+		if(files.getOriginalFilename() != null
+				&& files.getOriginalFilename().length() !=0 ) {
+			String filepath = UploadFileUtils.uploadFile(uploadPath, files.getOriginalFilename(),files.getBytes());
+			boardVo.setFile(filepath);
+		}
 		boardService.registerBoard(boardVo);
 		return "redirect:/board/list";
 	}
@@ -111,7 +113,8 @@ public class BoardController {
 	public String boardModifyPost(BoardVo boardVo, Model model, 
 			MultipartFile files) throws Exception {
 		String file;
-		if(files != null) {
+		if(files.getOriginalFilename() != null
+				&& files.getOriginalFilename().length() != 0) {
 			file = UploadFileUtils.uploadFile(uploadPath, files.getOriginalFilename(), files.getBytes());
 			boardVo.setFile(file);
 		}
