@@ -113,10 +113,14 @@ public class BoardController {
 	public String boardModifyPost(BoardVo boardVo, Model model, 
 			MultipartFile files) throws Exception {
 		String file;
+		BoardVo tmp = boardService.getBoard(boardVo.getNum());
 		if(files.getOriginalFilename() != null
 				&& files.getOriginalFilename().length() != 0) {
 			file = UploadFileUtils.uploadFile(uploadPath, files.getOriginalFilename(), files.getBytes());
 			boardVo.setFile(file);
+		}else {
+			// 이전 첨부파일 경로
+			boardVo.setFile(tmp.getFile());
 		}
 		boardService.updateBoard(boardVo);
 		return "redirect:/board/list";
