@@ -33,12 +33,23 @@
                 readonly value="${board.author}">
         </div>
         <div class="form-group">
+            <label for="author">첨부파일</label>
+            <div>
+            	<c:if test="${board.file != null}">
+            	<a href="<%=request.getContextPath()%>/board/download?fileName=${board.file}" >
+            		${board.oriFile}
+           		</a>
+           		</c:if>
+           		<c:if test="${board.file == null}">없음</c:if>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="contents">내용</label>
             <textarea name="contents" id="contents" rows="10" 
                 class="form-control" readonly>${board.contents}</textarea>
         </div>
-        <a href="<%= request.getContextPath() %>/board/list?page=${page}&search=${search}&type=${type}"><button type="button" class="btn btn-primary">목록</button></a>
-        <a href="<%= request.getContextPath() %>/board/modify?num=${board.num}&page=${page}&search=${search}">
+        <a href="<%= request.getContextPath() %>/board/list?page=${cri.page}&search=${cri.search}&type=${cri.type}"><button type="button" class="btn btn-primary">목록</button></a>
+        <a href="<%= request.getContextPath() %>/board/modify?num=${board.num}">
             <button type="button" class="btn btn-primary float-right">수정</button>
         </a>
         <a href="<%= request.getContextPath() %>/board/delete?num=${board.num}">

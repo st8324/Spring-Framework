@@ -22,7 +22,7 @@
 <body>
 	<div class="container">
 		<h1>게시판 수정</h1>
-		<form method="POST" action="<%=request.getContextPath()%>/board/modify">
+		<form method="POST" action="<%=request.getContextPath()%>/board/modify" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="title">제목</label>
 				<input type="text" name="title" id="title" class="form-control" value="${board.title}">
@@ -31,6 +31,18 @@
 				<label for="author">작성자</label>
 				<input type="text" name="author" id="author" class="form-control" readonly value="${board.author}">
 			</div>
+			<div class="form-group">
+		        <label>파일</label>
+		        <div>
+		        	<c:if test="${board.file != null}">
+	            	<a href="<%=request.getContextPath()%>/board/download?fileName=${board.file}" >
+	            		${board.oriFile}
+	           		</a>
+	           		</c:if>
+	           		<c:if test="${board.file == null}">없음</c:if>
+		        </div>
+		        <input type="file" class="form-control" name="files"/>
+		    </div>
 			<div class="form-group">
 				<label for="contents">내용</label>
 				<textarea name="contents" id="contents" rows="10" class="form-control">${board.contents}</textarea>

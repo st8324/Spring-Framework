@@ -7,7 +7,7 @@ import kr.green.spring.pagination.PageMaker;
 import kr.green.spring.vo.BoardVo;
 
 public interface BoardService {
-	public List<BoardVo> getBoardLists(Criteria cri, String search,Integer type);
+	public List<BoardVo> getBoardLists(Criteria cri);
 
 	public void registerBoard(BoardVo boardVo);
 
@@ -17,11 +17,7 @@ public interface BoardService {
 
 	public void updateBoard(BoardVo boardVo);
 	
-	public int getCountBoardLists(String search, Integer type);
-	
-	public PageMaker getPageMaker(
-		String search, Integer page, int perPageNum
-		,int displayPageNum, Integer type);
+	public PageMaker getPageMaker(Criteria cri,int displayPageNum);
 	
 }
 

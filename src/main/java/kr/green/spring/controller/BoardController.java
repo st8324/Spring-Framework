@@ -1,19 +1,34 @@
 package kr.green.spring.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.spring.pagination.Criteria;
 import kr.green.spring.pagination.PageMaker;
 import kr.green.spring.service.BoardService;
+import kr.green.spring.utils.UploadFileUtils;
 import kr.green.spring.vo.AccountVo;
 import kr.green.spring.vo.BoardVo;
 
@@ -21,22 +36,20 @@ import kr.green.spring.vo.BoardVo;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
-	
+	/* bean에 등록된 Resource 중에서 id가 uploadPath를 가져옴*/
+	@Resource
+	private String uploadPath;
 	@RequestMapping(value="/board/list", 
 			method=RequestMethod.GET)
-	public String boaldListGet(Model model, Integer page,
-			String search,Integer type) {
+	public String boaldListGet(Model model, Criteria cri) {
 		
 		PageMaker pageMaker 
-			= boardService.getPageMaker(search, page, 5, 10, type);
+			= boardService.getPageMaker(cri, 10);
 		
 		ArrayList list = null;
-		list = (ArrayList)boardService.getBoardLists
-				(pageMaker.getCriteria(),search,type);
-		model.addAttribute("search", search);
+		list = (ArrayList)boardService.getBoardLists(cri);
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("type",type);
 		return "board/list";
 	}
 	
@@ -53,22 +66,22 @@ public class BoardController {
 	}
 	@RequestMapping(value="/board/register",
 			method=RequestMethod.POST)
-	public String boardRegisterPost(BoardVo boardVo) {
+	public String boardRegisterPost(BoardVo boardVo, MultipartFile files) throws Exception {
+		
+		String filepath = UploadFileUtils.uploadFile(uploadPath, files.getOriginalFilename(),files.getBytes());
+		boardVo.setFile(filepath);
 		boardService.registerBoard(boardVo);
 		return "redirect:/board/list";
 	}
+	
 	@RequestMapping(value="/board/detail",
 			method=RequestMethod.GET)
-	public String boardDetailGet(Model model, Integer num, Integer page, String search,Integer type) {
+	public String boardDetailGet(Model model, Integer num, Criteria cri) {
 		if(num == null)
 			return "redirect:/board/list";
-		if(page == null)
-			page = 1;
 		BoardVo boardVo = boardService.getBoard(num);
 		model.addAttribute("board", boardVo);
-		model.addAttribute("page", page);
-		model.addAttribute("search",search);
-		model.addAttribute("type", type);
+		model.addAttribute("cri", cri);
 		return "board/detail";
 	}
 	@RequestMapping(value="/board/delete",
@@ -95,13 +108,36 @@ public class BoardController {
 	}
 	@RequestMapping(value="/board/modify",
 			method=RequestMethod.POST)
-	public String boardModifyPost(BoardVo boardVo,Integer page, Model model,String search) {
+	public String boardModifyPost(BoardVo boardVo, Model model, 
+			MultipartFile files) throws Exception {
+		String file;
+		if(files != null) {
+			file = UploadFileUtils.uploadFile(uploadPath, files.getOriginalFilename(), files.getBytes());
+			boardVo.setFile(file);
+		}
 		boardService.updateBoard(boardVo);
-		if(page == null)
-			page = 1;
-		model.addAttribute("page",page);
-		model.addAttribute("search", search);
 		return "redirect:/board/list";
+	}
+	@ResponseBody
+	@RequestMapping("/board/download")
+	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
+	    InputStream in = null;
+	    ResponseEntity<byte[]> entity = null;
+	    try{
+	        HttpHeaders headers = new HttpHeaders();
+	        in = new FileInputStream(uploadPath+fileName);
+	        fileName = fileName.substring(fileName.indexOf("_")+1);
+	        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+	        headers.add("Content-Disposition",  "attachment; filename=\"" 
+				+ new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+	        entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in),headers,HttpStatus.CREATED);
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	        entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+	    }finally {
+	        in.close();
+	    }
+	    return entity;
 	}
 }
 

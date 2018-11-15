@@ -33,8 +33,13 @@ public class BoardVo {
 
 	public String getFile() {
 		return file;
+		
 	}
-
+	public String getOriFile() {
+		if(file == null)
+			return "";
+		return file.substring(file.indexOf('_')+1);
+	}
 
 	public String getRegister_date() {
 		SimpleDateFormat format 

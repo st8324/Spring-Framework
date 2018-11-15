@@ -3,27 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.spring.dao.BoardDao">
-	<select id="getBoardListsByTitle" 
+	<select id="getBoardLists" 
 		resultType="kr.green.spring.vo.BoardVo">
 		select * 
 			from board 
-			where title like #{search}
-			order by num DESC
-			limit #{cri.startPage}, #{cri.perPageNum}
-	</select>
-	<select id="getBoardListsByAuthor" 
-		resultType="kr.green.spring.vo.BoardVo">
-		select * 
-			from board 
-			where author like #{search}
-			order by num DESC
-			limit #{cri.startPage}, #{cri.perPageNum}
-	</select>
-	<select id="getBoardListsByContents" 
-		resultType="kr.green.spring.vo.BoardVo">
-		select * 
-			from board 
-			where contents like #{search}
+		<if test="cri.type == 0">
+			where title like CONCAT('%',#{cri.search},'%')
+		</if>
+		<if test="cri.type == 1">
+			where author like CONCAT('%',#{cri.search},'%')
+		</if>
+		<if test="cri.type == 2">
+			where contents like CONCAT('%',#{cri.search},'%')
+		</if>	
 			order by num DESC
 			limit #{cri.startPage}, #{cri.perPageNum}
 	</select>
@@ -40,23 +32,23 @@
 	<update id="updateBoard">
 		update board 
 			set title = #{boardVo.title},
-				contents = #{boardVo.contents}
+				contents = #{boardVo.contents},
+				file = #{boardVo.file}
 			where num = #{boardVo.num}
 	</update>
-	<select id="getCountBoardListsByTitle" resultType="int">
+	<select id="getCountBoardLists" resultType="int">
 		select count(num) 
 			from board
-			where title like #{search}
-	</select>
-	<select id="getCountBoardListsByAuthor" resultType="int">
-		select count(num) 
-			from board
-			where author like #{search}
-	</select>
-	<select id="getCountBoardListsByContents" resultType="int">
-		select count(num) 
-			from board
-			where contents like #{search}
+		<if test="cri.type == 0">
+			where title like CONCAT('%',#{cri.search},'%')
+		</if>
+		<if test="cri.type == 1">
+			where author like CONCAT('%',#{cri.search},'%')
+		</if>
+		<if test="cri.type == 2">
+			where author like CONCAT('%',#{cri.search},'%')
+		</if>
+			
 	</select>
 </mapper>
 
