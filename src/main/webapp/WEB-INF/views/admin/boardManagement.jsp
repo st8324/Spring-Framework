@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -51,8 +52,12 @@ a{
   width:calc(100% - 200px);
 }
 .container-table{
-  width: 400px;
+  width: 860px;
   margin: 40px auto 0;
+}
+.navbar,
+.container-fluid{
+  min-width: 1060px;
 }
 </style>
 </head>
@@ -81,43 +86,61 @@ a{
       </ul>
     </div>
     <div class="contents">
-      <div class="container-table">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th width="150px">아이디</th>
-              <th width="100px">권한</th>
-              <th width="150px">수정</th>
-            </tr>
-          </thead>
-          <tbody>
-            <c:forEach var="acc" items="${list}">
-              <c:if test="${acc.author.compareTo('super admin') != 0 }">
-                <tr>
-                  <td>${acc.id}</td>
-                  <td>${acc.author}</td>
-                  <td>
-                    <c:choose>
-                      <c:when test="${acc.author.compareTo('user')==0}">
-                        <a href="<%=request.getContextPath() %>/admin/cms/user/modify?author=admin&id=${acc.id}">
-                          <button class="btn btn-outline-primary">admin</button>
-                        </a>
-                      </c:when>
-                      <c:otherwise>
-                        <a href="<%=request.getContextPath() %>/admin/cms/user/modify?author=user&id=${acc.id}">
-                          <button class="btn btn-outline-primary">user</button>
-                        </a>
-                      </c:otherwise>
-                    </c:choose>
-                  </td>
-                </tr>
-              </c:if>
-            </c:forEach>
-          </tbody>
-        </table>
-      </div>
+      <form method="post">
+        <div class="container-table">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th width="80px">선택</th>
+                <th width="80px">번호</th>
+                <th width="400px">제목</th>
+                <th width="150px">작성자</th>
+                <th width="150px">작성일</th>
+              </tr>
+            </thead>
+            <tbody>
+              <c:forEach var="bbs" items="${list}">
+              <tr>
+                <td><input type="checkbox" value="${bbs.num}" name="checkList"/> </td>
+                <td>${bbs.num}</td>
+                <td>${bbs.title}</td>
+                <td>${bbs.author}</td>
+                <td>${bbs.register_date}</td>
+              </tr>
+              </c:forEach>
+            </tbody>
+          </table>
+          <div id="pagination">
+            <ul class="pagination">
+              <li class="page-item <c:if test="${!(pageMaker.prev)}">disabled</c:if>"> 
+                <a class="page-link" href="<%=request.getContextPath()%>/admin/cms/board?page=${pageMaker.startPage -1}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}"><i class="fas fa-angle-left"></i></a>
+              </li>
+              <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="i">
+                <li class="page-item <c:if test="${pageMaker.criteria.page == i}">active</c:if>">
+                  <a class="page-link" href="<%=request.getContextPath()%>/admin/cms/board?page=${i}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">${i}</a>
+                </li>
+              </c:forEach>
+              <li class="page-item <c:if test="${!(pageMaker.next)}">disabled</c:if>">
+                <a class="page-link" href="<%=request.getContextPath()%>/admin/cms/board?page=${pageMaker.endPage +1}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}"><i class="fas fa-angle-right"></i></a>
+              </li>
+            </ul>
+          </div>
+          <button type="submit" class="btn btn-outline-primary">삭제</button>
+          <button type="button" id="allCheck">전체선택</button>
+        </div>
+      </form>
     </div>
   </div>  
 </div>
+<script type="text/javascript">
+$('#allCheck').click(function(){
+	var check = false;
+	if($('input:checkbox[name="checkList"]:checked').length == 0)
+		check = true;
+	$('input:checkbox[name="checkList"]').each(function(){
+		$(this).prop('checked', check);
+	});
+});
+</script>
 </body>
 </html>

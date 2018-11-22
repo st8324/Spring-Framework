@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -92,29 +93,42 @@ a{
           </thead>
           <tbody>
             <c:forEach var="acc" items="${list}">
-              <c:if test="${acc.author.compareTo('super admin') != 0 }">
-                <tr>
-                  <td>${acc.id}</td>
-                  <td>${acc.author}</td>
-                  <td>
-                    <c:choose>
-                      <c:when test="${acc.author.compareTo('user')==0}">
-                        <a href="<%=request.getContextPath() %>/admin/cms/user/modify?author=admin&id=${acc.id}">
-                          <button class="btn btn-outline-primary">admin</button>
-                        </a>
-                      </c:when>
-                      <c:otherwise>
-                        <a href="<%=request.getContextPath() %>/admin/cms/user/modify?author=user&id=${acc.id}">
-                          <button class="btn btn-outline-primary">user</button>
-                        </a>
-                      </c:otherwise>
-                    </c:choose>
-                  </td>
-                </tr>
-              </c:if>
+              <tr>
+                <td>${acc.id}</td>
+                <td>${acc.author}</td>
+                <td>
+                  <c:choose>
+                    <c:when test="${acc.author.compareTo('user')==0}">
+                      <a href="<%=request.getContextPath() %>/admin/cms/user/modify?author=admin&id=${acc.id}">
+                        <button class="btn btn-outline-primary">admin</button>
+                      </a>
+                    </c:when>
+                    <c:otherwise>
+                      <a href="<%=request.getContextPath() %>/admin/cms/user/modify?author=user&id=${acc.id}">
+                        <button class="btn btn-outline-primary">user</button>
+                      </a>
+                    </c:otherwise>
+                  </c:choose>
+                </td>
+              </tr>
             </c:forEach>
           </tbody>
         </table>
+        <div id="pagination">
+          <ul class="pagination">
+            <li class="page-item <c:if test="${!(pageMaker.prev)}">disabled</c:if>"> 
+              <a class="page-link" href="<%=request.getContextPath()%>/admin/cms/user?page=${pageMaker.startPage -1}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}"><i class="fas fa-angle-left"></i></a>
+            </li>
+            <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="i">
+              <li class="page-item <c:if test="${pageMaker.criteria.page == i}">active</c:if>">
+                <a class="page-link" href="<%=request.getContextPath()%>/admin/cms/user?page=${i}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">${i}</a>
+              </li>
+            </c:forEach>
+            <li class="page-item <c:if test="${!(pageMaker.next)}">disabled</c:if>">
+              <a class="page-link" href="<%=request.getContextPath()%>/admin/cms/user?page=${pageMaker.endPage +1}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}"><i class="fas fa-angle-right"></i></a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>  

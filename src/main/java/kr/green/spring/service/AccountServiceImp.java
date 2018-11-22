@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.green.spring.dao.AccountDao;
+import kr.green.spring.pagination.Criteria;
+import kr.green.spring.pagination.PageMaker;
 import kr.green.spring.vo.AccountVo;
 
 @Service
@@ -41,8 +43,9 @@ public class AccountServiceImp implements AccountService{
 	}
 
   @Override
-  public List<AccountVo> getAccounts() {
-    return accountDao.getAccounts();
+  public List<AccountVo> getAccounts(HttpServletRequest request,Criteria cri) {
+    AccountVo loginUser = getLoginUser(request);
+    return accountDao.getAccounts(cri,loginUser.getId());
   }
 
   @Override
@@ -59,6 +62,25 @@ public class AccountServiceImp implements AccountService{
     }
     accountDao.setAuthor(id, author);
     
+  }
+
+  @Override
+  public PageMaker getPageMaker(HttpServletRequest request,Criteria cri,int displayPageNum) {
+    AccountVo loginUser = getLoginUser(request);
+    int totalCount = accountDao.getTotalCount(loginUser.getId());
+    PageMaker pm = new PageMaker();
+    pm.setDisplayPageNum(displayPageNum);
+    pm.setCriteria(cri);
+    pm.setTotalCount(totalCount);
+    return pm;
+  }
+
+  @Override
+  public AccountVo getLoginUser(HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    AccountVo loginUser = (AccountVo) 
+          session.getAttribute("user");
+    return loginUser;
   }
 }
 
