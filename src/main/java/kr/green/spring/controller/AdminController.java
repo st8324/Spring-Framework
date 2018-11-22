@@ -29,17 +29,12 @@ public class AdminController {
   }
   @RequestMapping(value="/cms/user/modify")
   public String cmsUserModify(HttpServletRequest request, Model model,String author, String id) {
-    HttpSession session = request.getSession();
-    AccountVo loginUser = (AccountVo) 
-          session.getAttribute("user");
-    //로그인한 아이디와 수정하려는 아이디가 같으면
-    //세션에 있는 user 정보를 지우고 새로운 user 정보로 설정한다.
-    if(loginUser.getId().equals(id)) {
-      session.removeAttribute("user");
-      loginUser.setAuthor(author);
-      session.setAttribute("user", loginUser);
-    }
-    accountService.setAuthor(id,author);
+    
+    accountService.setAuthor(request,id,author);
     return "redirect:/admin/cms/user";
+  }
+  @RequestMapping(value="/cms/board")
+  public String cmsBoard(Model model) {
+    return "admin/boardManagement";
   }
 }

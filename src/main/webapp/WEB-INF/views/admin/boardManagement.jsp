@@ -72,10 +72,10 @@ a{
   <div class="row">
     <div class="sub-menu">
       <ul>
-        <li class="select">
+        <li>
           <a href="<%=request.getContextPath()%>/admin/cms/user" >회원 관리</a>
         </li>
-        <li>
+        <li class="select">
           <a href="<%=request.getContextPath()%>/admin/cms/board">게시물 관리</a>
         </li>
       </ul>
