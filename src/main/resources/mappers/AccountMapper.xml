@@ -16,6 +16,14 @@
   <select id="getAccount" resultType="kr.green.spring.vo.AccountVo">
   	select * from account where id = #{id}
   </select>
+  <select id="getAccounts" resultType="kr.green.spring.vo.AccountVo">
+    select * from account
+  </select>
+  <update id="setAuthor">
+    update account 
+      set author=#{author}
+      where id=#{id}
+  </update>
 </mapper>
 
 

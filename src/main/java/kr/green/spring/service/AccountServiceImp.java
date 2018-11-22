@@ -1,5 +1,7 @@
 package kr.green.spring.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,17 @@ public class AccountServiceImp implements AccountService{
 		accountDao.setAccount(accountVo);
 		return true;
 	}
+
+  @Override
+  public List<AccountVo> getAccounts() {
+    return accountDao.getAccounts();
+  }
+
+  @Override
+  public void setAuthor(String id, String author) {
+    accountDao.setAuthor(id, author);
+    
+  }
 }
 
 
