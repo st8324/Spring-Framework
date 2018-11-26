@@ -1,11 +1,8 @@
 package kr.green.spring.controller;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.spring.pagination.Criteria;
 import kr.green.spring.pagination.PageMaker;
+import kr.green.spring.service.AccountService;
 import kr.green.spring.service.BoardService;
 import kr.green.spring.utils.UploadFileUtils;
 import kr.green.spring.vo.AccountVo;
@@ -39,9 +36,15 @@ public class BoardController {
 	/* bean에 등록된 Resource 중에서 id가 uploadPath를 가져옴*/
 	@Resource
 	private String uploadPath;
+	@Resource
+	private AccountService accountService;
 	@RequestMapping(value="/board/list", 
 			method=RequestMethod.GET)
-	public String boaldListGet(Model model, Criteria cri) {
+	public String boaldListGet(
+	    HttpServletRequest request,
+	    Model model, 
+	    Criteria cri) {
+		AccountVo user = accountService.getLoginUser(request);
 		
 		PageMaker pageMaker 
 			= boardService.getPageMaker(cri, 10);
@@ -50,6 +53,7 @@ public class BoardController {
 		list = (ArrayList)boardService.getBoardLists(cri);
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("user", user);
 		return "board/list";
 	}
 	

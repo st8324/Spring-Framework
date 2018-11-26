@@ -28,22 +28,32 @@
 		class="kr.green.spring.interceptor.AuthorityInterceptor"></beans:bean>
 	<beans:bean id="unauthorityInterceptor" 
 		class="kr.green.spring.interceptor.UnauthorityInterceptor"></beans:bean>
-	<interceptors>
+  <beans:bean id="adminInterceptor" 
+    class="kr.green.spring.interceptor.AdminInterceptor"></beans:bean>
+  <beans:bean id="superAdminInterceptor" 
+    class="kr.green.spring.interceptor.SuperAdminInterceptor"></beans:bean>
+  <interceptors>
 		<interceptor>
-	        <mapping path="/"/>
-	        <beans:ref bean="loginInterceptor"/>
-	    </interceptor>
-	    <interceptor>
-	        <mapping path="/board/register"/>
-	        <mapping path="/board/modify"/>
-	        <mapping path="/board/delete"/>
-	        <beans:ref bean="authorityInterceptor"/>
-	    </interceptor>
-	    <interceptor>
-	        <mapping path="/"/>
-	        <mapping path="/signup"/>
-	        <beans:ref bean="unauthorityInterceptor"/>
-	    </interceptor>
+      <mapping path="/"/>
+      <beans:ref bean="loginInterceptor"/>
+    </interceptor>
+    <interceptor>
+        <mapping path="/board/*"/>
+        <beans:ref bean="authorityInterceptor"/>
+    </interceptor>
+    <interceptor>
+        <mapping path="/"/>
+        <mapping path="/signup"/>
+        <beans:ref bean="unauthorityInterceptor"/>
+    </interceptor>
+    <interceptor>
+      <mapping path="/admin/cms/board*"/>
+      <beans:ref bean="adminInterceptor"/>
+    </interceptor>
+    <interceptor>
+      <mapping path="/admin/cms/user*"/>
+      <beans:ref bean="superAdminInterceptor"/>
+    </interceptor>
 	</interceptors>	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	    <!-- 업로드 최대 크기 10Mb -->

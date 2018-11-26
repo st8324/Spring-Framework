@@ -49,38 +49,46 @@ a{
   background-color: whitesmoke;
 }
 .contents{
-  width:calc(100% - 200px);
+  width:calc(100%);
 }
 .container-table{
   width: 400px;
   margin: 40px auto 0;
 }
+.dropdown:hover>.dropdown-menu{
+  display: block;
+}
 </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <!-- Brand/logo -->
-  <a class="navbar-brand" href="#">Logo</a>
-  <!-- Links -->
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="<%=request.getContextPath() %>/board/list">게시판</a>
-    </li>
-  </ul>
-</nav>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="sub-menu">
-      <ul>
-        <li class="select">
-          <a href="<%=request.getContextPath()%>/admin/cms/user" >회원 관리</a>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="<%=request.getContextPath()%>/board/list">게시판</a>
         </li>
-        <li>
-          <a href="<%=request.getContextPath()%>/admin/cms/board">게시물 관리</a>
+        <c:if test="${!user.author.equals('user') }">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  관리자 페이지
+            </a>
+            <div class="dropdown-menu">
+              <c:if test="${user.author.equals('super admin')}">
+                <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/cms/user">회원</a>
+              </c:if>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/cms/board">게시판</a>
+            </div>
+          </li>
+        </c:if>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= request.getContextPath()%>/signout">로그아웃</a>
         </li>
       </ul>
     </div>
+  </nav>
+
+<div class="container-fluid">
+  <div class="row">
     <div class="contents">
       <div class="container-table">
         <table class="table table-bordered">

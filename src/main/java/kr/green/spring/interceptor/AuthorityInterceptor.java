@@ -27,6 +27,9 @@ public class AuthorityInterceptor
 	public void postHandle(
 			HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
 			throws Exception {
+	  AccountVo user = 
+	      (AccountVo) request.getSession().getAttribute("user");
+	  modelAndView.addObject("user", user);
 	}
 	
 }

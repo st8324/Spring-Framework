@@ -12,6 +12,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <title>관리자 페이지</title>
 <style type="text/css">
+*{
+box-sizing: border-box;
+}
 .sub-menu{
   width : 200px;
   /*  브라우저 높이에서 네비게이션의 높이를 뺌  */
@@ -33,7 +36,9 @@
   line-height: 40px;
   font-size: 23px;
   border-bottom: solid 1px white;
+
 }
+
 a{
   text-decoration: none;
   color: black;
@@ -49,7 +54,7 @@ a{
   background-color: whitesmoke;
 }
 .contents{
-  width:calc(100% - 200px);
+  width:calc(100%);
 }
 .container-table{
   width: 860px;
@@ -57,34 +62,43 @@ a{
 }
 .navbar,
 .container-fluid{
-  min-width: 1060px;
+  min-width: 860px;
 }
+.dropdown:hover>.dropdown-menu{
+  display: block;
+}
+
 </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <!-- Brand/logo -->
-  <a class="navbar-brand" href="#">Logo</a>
-  <!-- Links -->
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="<%=request.getContextPath() %>/board/list">게시판</a>
-    </li>
-  </ul>
-</nav>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="sub-menu">
-      <ul>
-        <li>
-          <a href="<%=request.getContextPath()%>/admin/cms/user" >회원 관리</a>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="<%=request.getContextPath()%>/board/list">게시판</a>
         </li>
-        <li class="select">
-          <a href="<%=request.getContextPath()%>/admin/cms/board">게시물 관리</a>
+        <c:if test="${!user.author.equals('user') }">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  관리자 페이지
+            </a>
+            <div class="dropdown-menu">
+              <c:if test="${user.author.equals('super admin')}">
+                <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/cms/user">회원</a>
+              </c:if>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/admin/cms/board">게시판</a>
+            </div>
+          </li>
+        </c:if>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= request.getContextPath()%>/signout">로그아웃</a>
         </li>
       </ul>
     </div>
+  </nav>
+
+<div class="container-fluid">
+  <div class="row">
     <div class="contents">
       <form method="post">
         <div class="container-table">
@@ -111,7 +125,7 @@ a{
             </tbody>
           </table>
           <div id="pagination">
-            <ul class="pagination">
+            <ul class="pagination justify-content-center">
               <li class="page-item <c:if test="${!(pageMaker.prev)}">disabled</c:if>"> 
                 <a class="page-link" href="<%=request.getContextPath()%>/admin/cms/board?page=${pageMaker.startPage -1}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}"><i class="fas fa-angle-left"></i></a>
               </li>
