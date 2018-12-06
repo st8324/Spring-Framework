@@ -82,6 +82,34 @@ public class AccountServiceImp implements AccountService{
           session.getAttribute("user");
     return loginUser;
   }
+
+  @Override
+  public boolean isDuplicated(String id) {
+    int cnt = accountDao.getUserCount(id);
+    if(cnt == 0)
+      return false;
+    else
+      return true;
+  }
+
+  @Override
+  public boolean checkAccount(String id, String email) {
+    AccountVo user = accountDao.getAccount(id);
+    if(user != null && user.getEmail().equals(email))
+      return true;
+    else
+      return false;
+  }
+
+  @Override
+  public void updatePw(String id, String pw) {
+    AccountVo user = accountDao.getAccount(id);
+    String encPw = passwordEncoder.encode(pw);
+    user.setPw(encPw);
+    accountDao.modifyAccount(user);
+  }
+
+  
 }
 
 

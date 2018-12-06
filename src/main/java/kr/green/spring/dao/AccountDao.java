@@ -17,4 +17,6 @@ public interface AccountDao {
   public void setAuthor(@Param("id")String id, 
       @Param("author")String author);
   public int getTotalCount(@Param("id")String id);
+  public int getUserCount(@Param("id")String id);
+  public void modifyAccount(@Param("user")AccountVo user);
 }

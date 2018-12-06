@@ -30,6 +30,7 @@
 				<div class="input-form"> 아이디 </div>
 				<input type="text" name="id" id="id"
 					class="form-control">
+        <button type="button" class="btn btn-outlin-primary" id="dup">중복확인</button>
 			</div>
 			<div>
 				<label id="id-error" class="error" for="id"></label>
@@ -198,6 +199,29 @@
 	    },
 	    "Please check your input."
 	);
+	$('#dup').click(function(){
+		if(!checkValidId()){
+			alert('아이디는 5~12자로 숫자와 영문자로 이루어져있습니다.');
+			return;
+		}
+		var id = $('#id').val();
+	    $.ajax({
+	        async:true,
+	        type:'POST',
+	        data:id,
+	        url:"dup",
+	        dataType:"json",
+	        contentType:"application/json; charset=UTF-8",
+	        success : function(data){
+	            console.log(data.dup);
+	            if(data.dup){
+	            	alert('이미 사용중인 아이디입니다.');
+	            }else{
+	            	alert('사용 가능한 아이디입니다.');
+	            }
+	        }
+	    });
+	})
 	</script>
 </body>
 </html>
